@@ -1,7 +1,9 @@
 import React from 'react';
+
 import MovieSelect from './components/MovieSelect';
 import MovieDetails from './components/MovieDetails';
 import './App.css';
+
 
 function App(movie) {
   return (
