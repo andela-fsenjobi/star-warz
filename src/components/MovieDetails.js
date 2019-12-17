@@ -7,7 +7,6 @@ import MovieIntro from './MovieIntro';
 
 const mapStateToProps = (state) => {
     const {movies, movieId} = state;
-    console.log(movies, movieId);
     return { movie: movies.find(result => result.url === movieId) };
 }
 
@@ -18,7 +17,7 @@ const MovieDetails = ({ movie }) => {
                 movie ?
                 <div>
                     <MovieIntro text={movie.opening_crawl} />
-                    <CharacterList characters={movie.characters} />
+                    <CharacterList list={movie.characters} />
                 </div> :
                 <img src={logo} className="App-logo" alt="logo" />
             }

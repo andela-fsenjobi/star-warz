@@ -2,15 +2,13 @@ import React from 'react';
 import { connect } from "react-redux";
 import { getDetails } from '../actions/actions'
 
-const mapStateToProps = state => {
-    return { movies: state.movies };
-}
+const mapStateToProps = state => ({ movies: state.movies });
 
 const MovieSelect = ({ movies, getDetails }) => {
     const handleMovieSelect = event => {
         getDetails(event.target.value);
     };
-    return(
+    return (
         <div>
             <p>
                 Choose a star wars movie
@@ -20,7 +18,7 @@ const MovieSelect = ({ movies, getDetails }) => {
                 {movies.map(movie => <option key={movie.url} value={movie.url}>{movie.title}</option>)}
             </select>
         </div>
-    )
+    );
 }
 
 
