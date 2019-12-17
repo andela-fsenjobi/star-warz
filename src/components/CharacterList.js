@@ -1,44 +1,34 @@
-import React from 'react';
-import { connect } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import { sortCharacters } from "../actions/actions";
 
-const mapStateToProps = (state, props) => {
-    let totalHeight = 0;
-    const characters = state.characters.filter(character => {
-        const inMovie = props.list.includes(character.url);
-        if (inMovie) totalHeight += +character.height;
-        return inMovie;
-    });
-    const totalHeightInches = totalHeight / 2.54;
-    const totalHeightFeet = totalHeightInches / 12;
-    const remHeightInches = totalHeightInches % 12;
-    
-    return { characters, totalHeight, totalHeightFeet, remHeightInches };
-}
-
-const CharacterList = ({
-  characters,
-  totalHeight,
-  totalHeightFeet,
-  remHeightInches,
-  sortCharacters,
-}) => {
+const CharacterList = () => {
+  const movieCharacters = useSelector(state => state.movieCharacters);
+  const dispatch = useDispatch();
+  const {
+    characters,
+    totalHeight,
+    totalHeightFeet,
+    remHeightInches
+  } = movieCharacters;
+  
   return (
     <table>
       <thead>
         <tr>
           <td>
-            <button onClick={() => sortCharacters(characters, "name")}>
+            <button onClick={() => dispatch(sortCharacters(characters, "name"))}>
               Name
             </button>
           </td>
           <td>
-            <button onClick={() => sortCharacters(characters, "gender")}>
+            <button onClick={() => dispatch(sortCharacters(characters, "gender"))}>
               Gender
             </button>
           </td>
           <td>
-            <button onClick={() => sortCharacters(characters, "height")}>
+            <button onClick={() => dispatch(sortCharacters(characters, "height"))}>
               Height
             </button>
           </td>
@@ -67,4 +57,4 @@ const CharacterList = ({
   );
 };
 
-export default connect(mapStateToProps, { sortCharacters })(CharacterList);
+export default CharacterList;

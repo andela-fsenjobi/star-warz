@@ -1,26 +1,31 @@
-import React from 'react';
+import React from "react";
 import { connect } from "react-redux";
-import { getDetails } from '../actions/actions'
+import { getDetails, getCharacters } from "../actions/actions";
 
-const mapStateToProps = state => ({ movies: state.movies });
+const mapStateToProps = state => ({ movies: state.movies, characters: state.characters });
 
-const MovieSelect = ({ movies, getDetails }) => {
-    const handleMovieSelect = event => {
-        getDetails(event.target.value);
-    };
-    return (
-        <div>
-            <p>
-                Choose a star wars movie
-            </p>
-            <select onChange={handleMovieSelect}>
-                <option></option>
-                {movies.map(movie => <option key={movie.url} value={movie.url}>{movie.title}</option>)}
-            </select>
-        </div>
-    );
-}
+const MovieSelect = ({ movies, getDetails, characters }) => {
+  const handleMovieSelect = event => {
+    const movieURL = event.target.value;
+    const movie = movies.find(movie => movie.url === movieURL);
+    getDetails(movie, characters);    
+    // getCharacters(characters, movie.characters);
+  };
+  return (
+    <div>
+      <p>Choose a star wars movie</p>
+      <select onChange={handleMovieSelect}>
+        <option></option>
+        {movies.map(movie => (
+          <option key={movie.url} value={movie.url}>
+            {movie.title}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
 
-
-
-export default connect(mapStateToProps, { getDetails })(MovieSelect);
+export default connect(mapStateToProps, { getDetails, getCharacters })(
+  MovieSelect
+);
