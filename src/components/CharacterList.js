@@ -1,6 +1,6 @@
 import React from 'react';
 
-function CharacterList() {
+const CharacterList = () => {
     return (
         <table>
             <thead>

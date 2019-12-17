@@ -2,23 +2,27 @@ import React from 'react';
 import { connect } from "react-redux";
 import { getDetails } from '../actions/actions'
 
-const handleMovieSelect = (event) => {
-    console.log(event.target.value);
-};
+const mapStateToProps = state => {
+    return { movies: state.movies };
+}
 
-const MovieSelect = () => (
-    <div>
-        <p>
-            Choose a star wars movie
-        </p>
-        <select onChange={handleMovieSelect}>
-            <option></option>
-            <option value="1">Movie 1</option>
-            <option value="2">Movie 2</option>
-            <option value="3">Movie 3</option>
-            <option value="4">Movie 4</option>
-        </select>
-    </div>
-);
+const MovieSelect = ({ movies, getDetails }) => {
+    const handleMovieSelect = event => {
+        getDetails(event.target.value);
+    };
+    return(
+        <div>
+            <p>
+                Choose a star wars movie
+            </p>
+            <select onChange={handleMovieSelect}>
+                <option></option>
+                {movies.map(movie => <option key={movie.url} value={movie.url}>{movie.title}</option>)}
+            </select>
+        </div>
+    )
+}
 
-export default connect(null, { getDetails })(MovieSelect);
+
+
+export default connect(mapStateToProps, { getDetails })(MovieSelect);

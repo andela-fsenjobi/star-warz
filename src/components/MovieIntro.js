@@ -1,9 +1,20 @@
 import React from 'react';
 
-function MovieIntro(movie) {
+const transformText = text => {
+    const lines = text.split('\r');
+    let index = 0;
     return (
-        <p>This is the introtext of the starwars movie... This is the introtext of the starwars movie... This is the introtext of the starwars movie... This is the introtext of the starwars movie... This is the introtext of the starwars movie... This is the introtext of the starwars movie...</p>
+      <p>
+        {lines.map(line => (
+          <span key={`line${index++}`}>
+            {line}
+            <br />
+          </span>
+        ))}
+      </p>
     );
 }
+
+const MovieIntro = ({text}) => transformText(text);
 
 export default MovieIntro;

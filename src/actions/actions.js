@@ -6,7 +6,7 @@ export const getMovies = () => {
   };
 }
 
-export const getDetails = movieId => {
+export const getDetails = movieId => {  
   return {
     type: actionTypes.LOAD_DETAILS,
     movieId,

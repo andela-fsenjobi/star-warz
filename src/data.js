@@ -1,4 +1,4 @@
-const store = {
+const data = {
 	"count": 7,
 	"next": null,
 	"previous": null,
@@ -541,4 +541,4 @@ const store = {
 	]
 }
 
-export default store;
+export default data;

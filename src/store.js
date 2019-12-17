@@ -1,9 +1,9 @@
-import { createStore, compose } from "redux";
+import { createStore } from "redux";
 
-import rootReducer from "./reducers";
+import rootReducer from "./reducers/index";
 import data from "./data";
 
-const defaultState = { data };
+const defaultState = { movies: data['results'] };
 
 const store = createStore(rootReducer, defaultState);
 
