@@ -14,24 +14,18 @@ const CharacterList = () => {
     remHeightInches,
     filters
   } = movieCharacters;
+  const dispatchSortCharacters = key => () =>
+    dispatch(sortCharacters(characters, key));
 
   return (
     <table>
       <thead>
         <tr>
           <td>
-            <button
-              onClick={() => dispatch(sortCharacters(characters, "name"))}
-            >
-              Name
-            </button>
+            <button onClick={dispatchSortCharacters("name")}>Name</button>
           </td>
           <td>
-            <button
-              onClick={() => dispatch(sortCharacters(characters, "gender"))}
-            >
-              Gender
-            </button>
+            <button onClick={dispatchSortCharacters("gender")}>Gender</button>
             <FilterByGender
               filters={filters}
               onChange={e =>
@@ -40,11 +34,7 @@ const CharacterList = () => {
             />
           </td>
           <td>
-            <button
-              onClick={() => dispatch(sortCharacters(characters, "height"))}
-            >
-              Height
-            </button>
+            <button onClick={dispatchSortCharacters("height")}>Height</button>
           </td>
         </tr>
       </thead>
@@ -62,8 +52,7 @@ const CharacterList = () => {
           <td></td>
           <td></td>
           <td>
-            {`${totalHeight}cm`} (
-            {`${totalHeightFeet}ft/${remHeightInches}in`})
+            {`${totalHeight}cm`} ({`${totalHeightFeet}ft/${remHeightInches}in`})
           </td>
         </tr>
       </tfoot>
