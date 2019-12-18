@@ -31,6 +31,10 @@ const CharacterList = () => {
               onClick={() => dispatch(sortCharacters(characters, "gender"))}
             >
               Gender
+              <FilterByGender
+                filters={filters}
+                onChange={(e) => dispatch(filterCharacters(characters, e.target.value))}
+              />
             </button>
             <FilterByGender
               filters={filters}
