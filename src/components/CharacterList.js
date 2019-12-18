@@ -1,7 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { sortCharacters } from "../actions/actions";
+import { sortCharacters, filterCharacters } from "../actions/actions";
+import FilterByGender from "./FilterByGender";
 
 const CharacterList = () => {
   const movieCharacters = useSelector(state => state.movieCharacters);
@@ -10,25 +11,38 @@ const CharacterList = () => {
     characters,
     totalHeight,
     totalHeightFeet,
-    remHeightInches
+    remHeightInches,
+    filters
   } = movieCharacters;
-  
+
   return (
     <table>
       <thead>
         <tr>
           <td>
-            <button onClick={() => dispatch(sortCharacters(characters, "name"))}>
+            <button
+              onClick={() => dispatch(sortCharacters(characters, "name"))}
+            >
               Name
             </button>
           </td>
           <td>
-            <button onClick={() => dispatch(sortCharacters(characters, "gender"))}>
+            <button
+              onClick={() => dispatch(sortCharacters(characters, "gender"))}
+            >
               Gender
             </button>
+            <FilterByGender
+              filters={filters}
+              onChange={e =>
+                dispatch(filterCharacters(characters, e.target.value))
+              }
+            />
           </td>
           <td>
-            <button onClick={() => dispatch(sortCharacters(characters, "height"))}>
+            <button
+              onClick={() => dispatch(sortCharacters(characters, "height"))}
+            >
               Height
             </button>
           </td>

@@ -16,7 +16,7 @@ const MovieDetails = ({ movie }) => {
       {movie ? (
         <div>
           <MovieIntro text={movie.opening_crawl} />
-          <CharacterList list={movie.characters} />
+          <CharacterList />
         </div>
       ) : (
         <img src={logo} className="App-logo" alt="logo" />

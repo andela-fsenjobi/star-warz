@@ -20,7 +20,8 @@ export const sortCharacters = (characters, key) => ({
   key,
 });
 
-export const filterCharacters = gender => ({
+export const filterCharacters = (characters, gender) => ({
   type: actionTypes.FILTER_CHARACTERS_BY_GENDER,
+  characters,
   gender,
 });

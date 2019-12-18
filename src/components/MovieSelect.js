@@ -9,7 +9,6 @@ const MovieSelect = ({ movies, getDetails, characters }) => {
     const movieURL = event.target.value;
     const movie = movies.find(movie => movie.url === movieURL);
     getDetails(movie, characters);    
-    // getCharacters(characters, movie.characters);
   };
   return (
     <div>
