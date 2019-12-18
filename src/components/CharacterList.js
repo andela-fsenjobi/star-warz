@@ -63,7 +63,7 @@ const CharacterList = () => {
           <td></td>
           <td>
             {`${totalHeight}cm`} (
-            {`${totalHeightFeet}ft/${remHeightInches}inches`})
+            {`${totalHeightFeet}ft/${remHeightInches}in`})
           </td>
         </tr>
       </tfoot>

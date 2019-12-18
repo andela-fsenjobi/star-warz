@@ -3,13 +3,24 @@ export const filterObjectArray = (objectArray, gender) => {
     characters,
     filtered,
     gender: oldGender,
-    filteredCharacters
+    filteredCharacters,
+    totalHeight,
   } = objectArray;
   let listToFilter;
+  let startPoint = {
+    characters: [],
+    totalHeight: 0,
+    filteredCharacters: [],
+  };
   if (filtered) {
     if (gender === oldGender) return objectArray;
     if (gender === "all") {
-      listToFilter = filteredCharacters.concat(characters);
+      listToFilter = filteredCharacters;
+      startPoint = {
+        characters,
+        totalHeight,
+        filteredCharacters: [],
+      };
     } else if (gender !== oldGender) {
       listToFilter = filteredCharacters;
     }
@@ -17,27 +28,19 @@ export const filterObjectArray = (objectArray, gender) => {
     listToFilter = characters;
   }
 
-  const newStuff = listToFilter.reduce(
-    (a, b) => {
-      if (b.gender === gender || gender === "all") {
-        a.characters.push(b);
-        a.totalHeight += +b.height;
-      } else {
-        a.filteredCharacters.push(b);
-      }
-
-      return a;
-    },
-    {
-      characters: [],
-      totalHeight: 0,
-      filteredCharacters: []
+  const newStuff = listToFilter.reduce((a, b) => {
+    if (b.gender === gender || gender === "all") {
+      a.characters.push(b);
+      a.totalHeight += +b.height;
+    } else {
+      a.filteredCharacters.push(b);
     }
-  );
-
+    return a;
+  }, startPoint);
+  
   const totalHeightInches = newStuff.totalHeight / 2.54;
-  const totalHeightFeet = totalHeightInches / 12;
-  const remHeightInches = totalHeightInches % 12;
+  const totalHeightFeet = Math.round(totalHeightInches / 12);
+  const remHeightInches = Math.round(totalHeightInches % 12);
   return {
     ...newStuff,
     filteredCharacters: (filtered && gender !== oldGender) ? newStuff.filteredCharacters.concat(characters) : newStuff.filteredCharacters,

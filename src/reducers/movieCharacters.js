@@ -17,8 +17,8 @@ export default function(state = initialState, action) {
         return inMovie;
       });
       const totalHeightInches = totalHeight / 2.54;
-      const totalHeightFeet = totalHeightInches / 12;
-      const remHeightInches = totalHeightInches % 12;
+      const totalHeightFeet = Math.round(totalHeightInches / 12);
+      const remHeightInches = Math.round(totalHeightInches % 12);
 
       return { characters, totalHeight, totalHeightFeet, remHeightInches, filters };
     }
