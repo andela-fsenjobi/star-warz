@@ -19,7 +19,9 @@ const MovieDetails = ({ movie }) => {
           <CharacterList />
         </div>
       ) : (
-        <img src={logo} className="App-logo" alt="logo" />
+        <div className="text-center">
+          <img src={logo} className="logo" alt="Star Warz" />
+        </div>
       )}
     </div>
   );

@@ -4,8 +4,9 @@ import {
   fetchCharacters,
   fetchMovies,
   getDetails,
-  refreshMovieCharacters,
+  refreshMovieCharacters
 } from "../actions/actions";
+import Loading from "./Loading";
 
 const mapStateToProps = state => ({
   movies: state.movies.results,
@@ -31,18 +32,30 @@ const MovieSelect = ({
     fetchCharacters(movie.characters, characters);
   };
   return (
-    <div>
-      <p>Choose a star wars movie</p>
-      {console.log({pending})}
-      {!pending && (
-        <select onChange={handleMovieSelect}>
-          <option></option>
-          {movies.map(movie => (
-            <option key={movie.url} value={movie.url}>
-              {movie.title}
-            </option>
-          ))}
-        </select>
+    <div className="title">
+      <div className="row">
+        <div className="col-md-8 offset-md-2 text-center">
+          <h1 class="display-4">Choose a Star Wars movie</h1>
+        </div>
+      </div>
+      {pending ? (
+        <Loading />
+      ) : (
+        <div className="row">
+          <div className="col-md-8 offset-md-2">
+            <select
+              onChange={handleMovieSelect}
+              className="form-control form-control-lg"
+            >
+              <option></option>
+              {movies.map(movie => (
+                <option key={movie.url} value={movie.url}>
+                  {movie.title}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
       )}
     </div>
   );
@@ -52,5 +65,5 @@ export default connect(mapStateToProps, {
   fetchCharacters,
   fetchMovies,
   getDetails,
-  refreshMovieCharacters,
+  refreshMovieCharacters
 })(MovieSelect);

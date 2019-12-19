@@ -18,45 +18,48 @@ const CharacterList = () => {
     dispatch(sortCharacters(characters, key));
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <td>
-            <button onClick={dispatchSortCharacters("name")}>Name</button>
-          </td>
-          <td>
-            <button onClick={dispatchSortCharacters("gender")}>Gender</button>
-            <FilterByGender
-              filters={filters}
-              onChange={e =>
-                dispatch(filterCharacters(characters, e.target.value))
-              }
-            />
-          </td>
-          <td>
-            <button onClick={dispatchSortCharacters("height")}>Height</button>
-          </td>
-        </tr>
-      </thead>
-      <tbody>
-        {characters.map(({ name, gender, height, url }) => (
-          <tr key={url}>
-            <td>{name}</td>
-            <td>{gender}</td>
-            <td>{height}</td>
-          </tr>
-        ))}
-      </tbody>
-      <tfoot>
-        <tr>
-          <td></td>
-          <td></td>
-          <td>
-            {`${totalHeight}cm`} ({`${totalHeightFeet}ft/${remHeightInches}in`})
-          </td>
-        </tr>
-      </tfoot>
-    </table>
+    <div className="container">
+      <div className="row">
+        <div className="col-md-8 offset-md-2 text-center">
+          <h3 class="display-4">List of characters</h3>
+        </div>
+      </div>
+      <div className="row list-header">
+        <div className="col-md-4 offset-md-1">
+          <button onClick={dispatchSortCharacters("name")}>Name</button>
+        </div>
+        <div className="col-md-4">
+          <div className="row">
+            <div className="col-md-6">
+              <button onClick={dispatchSortCharacters("gender")}>Gender</button>
+            </div>
+            <div className="col-md-6">
+              <FilterByGender
+                filters={filters}
+                onChange={e =>
+                  dispatch(filterCharacters(characters, e.target.value))
+                }
+              />
+            </div>
+          </div>
+        </div>
+        <div className="col-md-2 text-right">
+          <button onClick={dispatchSortCharacters("height")}>Height</button>
+        </div>
+      </div>
+      {characters.map(({ name, gender, height, url }) => (
+        <div className="row list-item" key={url}>
+          <div className="col-md-4 offset-md-1">{name}</div>
+          <div className="col-md-4">{gender}</div>
+          <div className="col-md-2 text-right">{height}</div>
+        </div>
+      ))}
+      <div className="row list-footer">
+        <div className="col-md-10 offset-md-1 text-right border-top">
+          {`${totalHeight}cm`} ({`${totalHeightFeet}ft/${remHeightInches}in`})
+        </div>
+      </div>
+    </div>
   );
 };
 
