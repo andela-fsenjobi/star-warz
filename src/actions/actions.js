@@ -32,9 +32,7 @@ export const loadCharacter = (id, character) => ({
   character
 });
 
-export const refreshMovieCharacters = () => ({
-  type: actionTypes.REFRESH_MOVIE_CHARACTERS
-});
+const refreshMovieCharacters = { type: actionTypes.REFRESH_MOVIE_CHARACTERS };
 
 export const addCachedMovieCharacters = movieCharacters => ({
   type: actionTypes.ADD_CACHED_CHARACTERS,
@@ -61,6 +59,7 @@ export const fetchCharacters = (list, characters) => {
   return dispatch => {
     const movieCharacters = [];
     let apiHits = 0;
+    dispatch(refreshMovieCharacters);
     for (let i in list) {
       const url = list[i];
       const characterId = +url.match(/\d+/)[0];
