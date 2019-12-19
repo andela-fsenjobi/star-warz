@@ -19,9 +19,22 @@ const CharacterList = () => {
 
   return (
     <div className="container">
-      <div className="row">
+      <div className="row title">
         <div className="col-md-8 offset-md-2 text-center">
-          <h3 class="display-4">List of characters</h3>
+          <h3>List of characters</h3>
+        </div>
+      </div>
+      <div className="row gender-filter">
+        <div className="col-md-5 offset-md-1 text-left">
+          Filter by gender:
+        </div>
+        <div className="col-md-5 text-right">
+          <FilterByGender
+            filters={filters}
+            onChange={e =>
+              dispatch(filterCharacters(characters, e.target.value))
+            }
+          />
         </div>
       </div>
       <div className="row list-header">
@@ -29,19 +42,7 @@ const CharacterList = () => {
           <button onClick={dispatchSortCharacters("name")}>Name</button>
         </div>
         <div className="col-md-4">
-          <div className="row">
-            <div className="col-md-6">
-              <button onClick={dispatchSortCharacters("gender")}>Gender</button>
-            </div>
-            <div className="col-md-6">
-              <FilterByGender
-                filters={filters}
-                onChange={e =>
-                  dispatch(filterCharacters(characters, e.target.value))
-                }
-              />
-            </div>
-          </div>
+          <button onClick={dispatchSortCharacters("gender")}>Gender</button>
         </div>
         <div className="col-md-2 text-right">
           <button onClick={dispatchSortCharacters("height")}>Height</button>
