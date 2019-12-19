@@ -12,7 +12,7 @@ const defaultState = {
     oldKey: 'release_date',
     sortState: 'desc',
   }).characters,
-  characters: data.people["results"]
+  characters: []
 };
 const middlewares = [thunk];
 

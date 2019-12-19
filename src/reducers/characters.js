@@ -3,9 +3,13 @@ import { actionTypes } from "../actions/actionTypes";
 const initialState = {};
 
 export default function(state = initialState, action) {
-  switch (action.type) {
-    case actionTypes.LOAD_MOVIES:
-      return state;
+  const { id, character, type } = action
+  switch (type) {
+    case actionTypes.LOAD_CHARACTER: {
+      const newState = state;
+      newState[id] = character;
+      return newState;
+    }
     case actionTypes.LOAD_DETAILS:
       return state;
     case actionTypes.SORT_CHARACTERS_BY_GENDER:
