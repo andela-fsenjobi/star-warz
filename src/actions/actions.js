@@ -32,6 +32,11 @@ export const loadCharacter = (id, character) => ({
   character
 });
 
+export const loadMovies = movies => ({
+  type: actionTypes.LOAD_MOVIES,
+  movies
+});
+
 export const refreshMovieCharacters = () => ({
   type: actionTypes.REFRESH_MOVIE_CHARACTERS
 });
@@ -54,6 +59,23 @@ const fetchCharacter = (id, dispatch) => {
     .catch(error => {
       console.log("Not working");
     });
+};
+
+export const fetchMovies = () => {
+  return dispatch => {
+    fetch('https://swapi.co/api/films/')
+      .then(res => res.json())
+      .then(res => {
+        if (res.error) {
+          throw res.error;
+        }
+        dispatch(loadMovies(res));
+        return res;
+      })
+      .catch(error => {
+        console.log("Not working");
+      });
+  };
 };
 
 export const fetchCharacters = (list, characters) => {

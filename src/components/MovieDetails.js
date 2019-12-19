@@ -7,7 +7,7 @@ import MovieIntro from "./MovieIntro";
 
 const mapStateToProps = state => {
   const { movies, movieId } = state;
-  return { movie: movies.find(result => result.url === movieId) };
+  return { movie: movies.results.find(result => result.url === movieId) };
 };
 
 const MovieDetails = ({ movie }) => {

@@ -1,18 +1,11 @@
 import { applyMiddleware, createStore } from "redux";
 import thunk from "redux-thunk";
 
-import { sortObjectArray } from "./utility/sorter";
 import rootReducer from "./reducers/index";
-import data from "./data";
 
 const defaultState = {
-  movies: sortObjectArray({
-    characters: data.movies["results"],
-    key: 'release_date',
-    oldKey: 'release_date',
-    sortState: 'desc',
-  }).characters,
-  characters: []
+  movies: { results: [], pending: true },
+  characters: {}
 };
 const middlewares = [thunk];
 
