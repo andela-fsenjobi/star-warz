@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -38,4 +38,39 @@
 select {
   width: 400px;
   height: 35px;
+} */
+
+button,
+select {
+  background: none;
+  border: none;
+  margin: none;
+  color: inherit;
+  text-align: left;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.logo {
+  height: 40vmin;
+  pointer-events: none;
+  text-align: center;
+}
+
+.title {
+  margin: 50px;
+}
+
+body {
+  font-size: large;
+}
+
+.list-header, .list-footer, button {
+  font-weight: 900;
+}
+
+.list-item {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: 200;
 }

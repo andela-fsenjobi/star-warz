@@ -12,17 +12,14 @@ export const filterObjectArray = (objectArray, gender) => {
     totalHeight: 0,
     filteredCharacters: [],
   };
+  if (gender === oldGender) return objectArray;
   if (filtered) {
-    if (gender === oldGender) return objectArray;
+    listToFilter = filteredCharacters;
     if (gender === "all") {
-      listToFilter = filteredCharacters;
-      startPoint = {
-        characters,
-        totalHeight,
-        filteredCharacters: [],
-      };
+      startPoint.characters = characters;
+      startPoint.totalHeight = totalHeight;
     } else if (gender !== oldGender) {
-      listToFilter = filteredCharacters;
+      startPoint.filteredCharacters =  characters
     }
   } else {
     listToFilter = characters;
@@ -31,7 +28,7 @@ export const filterObjectArray = (objectArray, gender) => {
   const newStuff = listToFilter.reduce((a, b) => {
     if (b.gender === gender || gender === "all") {
       a.characters.push(b);
-      a.totalHeight += +b.height;
+      if (b.height !== "unknown") a.totalHeight += +b.height;
     } else {
       a.filteredCharacters.push(b);
     }
@@ -43,7 +40,6 @@ export const filterObjectArray = (objectArray, gender) => {
   const remHeightInches = Math.round(totalHeightInches % 12);
   return {
     ...newStuff,
-    filteredCharacters: (filtered && gender !== oldGender) ? newStuff.filteredCharacters.concat(characters) : newStuff.filteredCharacters,
     totalHeightFeet,
     remHeightInches,
     filtered: gender !== 'all',

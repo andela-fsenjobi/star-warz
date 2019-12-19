@@ -7,7 +7,7 @@ import MovieIntro from "./MovieIntro";
 
 const mapStateToProps = state => {
   const { movies, movieId } = state;
-  return { movie: movies.find(result => result.url === movieId) };
+  return { movie: movies.results.find(result => result.url === movieId) };
 };
 
 const MovieDetails = ({ movie }) => {
@@ -19,7 +19,9 @@ const MovieDetails = ({ movie }) => {
           <CharacterList />
         </div>
       ) : (
-        <img src={logo} className="App-logo" alt="logo" />
+        <div className="text-center">
+          <img src={logo} className="logo" alt="Star Warz" />
+        </div>
       )}
     </div>
   );
