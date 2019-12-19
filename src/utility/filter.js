@@ -28,7 +28,7 @@ export const filterObjectArray = (objectArray, gender) => {
   const newStuff = listToFilter.reduce((a, b) => {
     if (b.gender === gender || gender === "all") {
       a.characters.push(b);
-      a.totalHeight += +b.height;
+      if (b.height !== "unknown") a.totalHeight += +b.height;
     } else {
       a.filteredCharacters.push(b);
     }

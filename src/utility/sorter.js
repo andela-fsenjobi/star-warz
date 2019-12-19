@@ -42,8 +42,10 @@ const sortAsc = (objectArray, key) => {
 };
 
 const prepareValue = (value, type) => {
-  if (type === "height") {
+  if (type === "height" && value !== "unknown") {
     return +value;
+  } else if (type === "height" && value === "unknown") {
+    return 0;
   } else if (type === "release_date") {
     return new Date(value);
   } else {

@@ -32,7 +32,9 @@ export const loadCharacter = (id, character) => ({
   character
 });
 
-const refreshMovieCharacters = { type: actionTypes.REFRESH_MOVIE_CHARACTERS };
+export const refreshMovieCharacters = () => ({
+  type: actionTypes.REFRESH_MOVIE_CHARACTERS
+});
 
 export const addCachedMovieCharacters = movieCharacters => ({
   type: actionTypes.ADD_CACHED_CHARACTERS,
@@ -50,7 +52,6 @@ const fetchCharacter = (id, dispatch) => {
       return res;
     })
     .catch(error => {
-      // dispatch(fetchProductsError(error));
       console.log("Not working");
     });
 };
@@ -58,19 +59,15 @@ const fetchCharacter = (id, dispatch) => {
 export const fetchCharacters = (list, characters) => {
   return dispatch => {
     const movieCharacters = [];
-    let apiHits = 0;
-    dispatch(refreshMovieCharacters);
     for (let i in list) {
       const url = list[i];
       const characterId = +url.match(/\d+/)[0];
       if (characters[characterId] !== undefined) {
         movieCharacters.push(characters[characterId]);
       } else {
-        ++apiHits;
         fetchCharacter(characterId, dispatch);
       }
     }
-    console.log(apiHits);
     dispatch(addCachedMovieCharacters(movieCharacters));
   };
 };

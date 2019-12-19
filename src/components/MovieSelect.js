@@ -1,14 +1,25 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getDetails, fetchCharacters } from "../actions/actions";
+import {
+  getDetails,
+  fetchCharacters,
+  refreshMovieCharacters
+} from "../actions/actions";
 
 const mapStateToProps = state => ({ movies: state.movies, characters: state.characters });
 
-const MovieSelect = ({ movies, getDetails, characters, fetchCharacters }) => {
+const MovieSelect = ({
+  movies,
+  characters,
+  getDetails,
+  fetchCharacters,
+  refreshMovieCharacters
+}) => {
   const handleMovieSelect = event => {
     const movieURL = event.target.value;
     const movie = movies.find(movie => movie.url === movieURL);
     getDetails(movie, characters);
+    refreshMovieCharacters();
     fetchCharacters(movie.characters, characters);
   };
   return (
@@ -26,6 +37,8 @@ const MovieSelect = ({ movies, getDetails, characters, fetchCharacters }) => {
   );
 };
 
-export default connect(mapStateToProps, { getDetails, fetchCharacters })(
-  MovieSelect
-);
+export default connect(mapStateToProps, {
+  getDetails,
+  fetchCharacters,
+  refreshMovieCharacters
+})(MovieSelect);
