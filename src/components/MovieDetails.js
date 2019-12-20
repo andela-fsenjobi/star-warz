@@ -1,16 +1,14 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
 import logo from "../logo.svg";
 import CharacterList from "./CharacterList";
 import MovieIntro from "./MovieIntro";
 
-const mapStateToProps = state => {
-  const { movies, movieId } = state;
-  return { movie: movies.results.find(result => result.url === movieId) };
-};
+const MovieDetails = () => {
+  const { movies, movieId } = useSelector(state => state);
+  const movie = movies.results.find(result => result.url === movieId);
 
-const MovieDetails = ({ movie }) => {
   return (
     <div>
       {movie ? (
@@ -27,4 +25,4 @@ const MovieDetails = ({ movie }) => {
   );
 };
 
-export default connect(mapStateToProps)(MovieDetails);
+export default MovieDetails;

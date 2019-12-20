@@ -1,5 +1,6 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
 import {
   fetchCharacters,
   fetchMovies,
@@ -8,31 +9,19 @@ import {
 } from "../actions/actions";
 import Loading from "./Loading";
 
-const mapStateToProps = state => ({
-  movies: state.movies.results,
-  pending: state.movies.pending,
-  characters: state.characters
-});
-
-const MovieSelect = ({
-  characters,
-  fetchCharacters,
-  fetchMovies,
-  getDetails,
-  movies,
-  pending,
-  refreshMovieCharacters
-}) => {
-  fetchMovies();
-  const handleMovieSelect = event => {
-    const movieURL = event.target.value;
-    const movie = movies.find(movie => movie.url === movieURL);
-    getDetails(movie, characters);
-    refreshMovieCharacters();
-    if (movie) {
-      fetchCharacters(movie.characters, characters);
-    } 
+const MovieSelect = () => {
+  const {
+    characters,
+    movies: { results: movies, pending }
+  } = useSelector(state => state);
+  const dispatch = useDispatch();
+  const handleMovieSelect = (dispatch, url) => {
+    const movie = movies.find(movie => movie.url === url);
+    dispatch(getDetails(movie, characters));
+    dispatch(refreshMovieCharacters());
+    if (movie) dispatch(fetchCharacters(movie.characters, characters));
   };
+  dispatch(fetchMovies());
   return (
     <div className="title">
       <div className="row">
@@ -46,7 +35,7 @@ const MovieSelect = ({
         <div className="row">
           <div className="col-md-8 offset-md-2">
             <select
-              onChange={handleMovieSelect}
+              onChange={e => handleMovieSelect(dispatch, e.target.value)}
               className="form-control form-control-lg"
             >
               <option></option>
@@ -63,9 +52,4 @@ const MovieSelect = ({
   );
 };
 
-export default connect(mapStateToProps, {
-  fetchCharacters,
-  fetchMovies,
-  getDetails,
-  refreshMovieCharacters
-})(MovieSelect);
+export default MovieSelect;
