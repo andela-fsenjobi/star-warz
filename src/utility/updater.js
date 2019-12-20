@@ -1,6 +1,6 @@
 import { filter, decorate } from "./filter";
 
-export const decorateMovieCharacters = (movieCharacters, state) => {
+export const updateMovieCharacters = (movieCharacters, state) => {
   const startPoint = state.refresh
     ? { characters: [], totalHeight: 0, filters: [] }
     : state;
@@ -17,6 +17,6 @@ export const decorateMovieCharacters = (movieCharacters, state) => {
   return {
     ...updatedMovieCharacters,
     ...heightDetails,
-    refresh: false
+    refresh: false,
   };
 };

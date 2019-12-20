@@ -15,7 +15,7 @@ const MovieDetails = ({ movie }) => {
     <div>
       {movie ? (
         <div>
-          <MovieIntro text={movie.opening_crawl} />
+          <MovieIntro {...movie} />
           <CharacterList />
         </div>
       ) : (

@@ -1,17 +1,19 @@
 import { actionTypes } from "../actions/actionTypes";
-import { sortCharacters } from "../utility/sorter";
-import { filterCharacters } from "../utility/filter";
-import { decorateMovieCharacters } from "../utility/decorator";
+import {
+  sortCharacters,
+  filterCharacters,
+  updateMovieCharacters
+} from "../utility";
 
 const initialState = { characters: [], filters: [], totalHeight: 0 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case actionTypes.LOAD_CHARACTER: {
-      return decorateMovieCharacters([action.character], state);
+      return updateMovieCharacters([action.character], state);
     }
     case actionTypes.ADD_CACHED_CHARACTERS: {
-      return decorateMovieCharacters(action.movieCharacters, state);
+      return updateMovieCharacters(action.movieCharacters, state);
     }
     case actionTypes.REFRESH_MOVIE_CHARACTERS:
       return { ...state, refresh: true };

@@ -40,6 +40,13 @@ export const loadMovies = movies => ({
 export const refreshMovieCharacters = () => ({
   type: actionTypes.REFRESH_MOVIE_CHARACTERS
 });
+export const movieCharactersLoading = () => ({
+  type: actionTypes.MOVIE_CHARACTERS_LOADING
+});
+
+export const movieCharactersLoaded = () => ({
+  type: actionTypes.MOVIE_CHARACTERS_LOADED
+});
 
 export const addCachedMovieCharacters = movieCharacters => ({
   type: actionTypes.ADD_CACHED_CHARACTERS,
@@ -63,7 +70,7 @@ const fetchCharacter = (id, dispatch) => {
 
 export const fetchMovies = () => {
   return dispatch => {
-    fetch('https://swapi.co/api/films/')
+    fetch("https://swapi.co/api/films/")
       .then(res => res.json())
       .then(res => {
         if (res.error) {
