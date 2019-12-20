@@ -5,8 +5,8 @@ const transformText = text => {
   let index = 0;
   return (
     <div className="row">
-      <div className="col-md-4 offset-md-4 text-center">
-        <p>
+      <div className="col-md-4 offset-md-4 text-center intro-container">
+        <p className="intro-content">
           {lines.map(line => (
             <span key={`line${index++}`}>
               {line}

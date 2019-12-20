@@ -1,6 +1,6 @@
 import { actionTypes } from "../actions/actionTypes";
-import { sortObjectArray } from "../utility/sorter";
-import { filterObjectArray } from "../utility/filter";
+import { sortCharacters } from "../utility/sorter";
+import { filterCharacters } from "../utility/filter";
 import { decorateMovieCharacters } from "../utility/decorator";
 
 const initialState = { characters: [], filters: [], totalHeight: 0 };
@@ -20,12 +20,12 @@ export default function(state = initialState, action) {
       const { characters, sortState, key: oldKey } = state;
       return {
         ...state,
-        ...sortObjectArray({ characters, key, oldKey, sortState }),
+        ...sortCharacters({ characters, key, oldKey, sortState }),
         key
       };
     }
     case actionTypes.FILTER_CHARACTERS_BY_GENDER: {
-      return { ...state, ...filterObjectArray(state, action.gender) };
+      return { ...state, ...filterCharacters(state, action.gender) };
     }
     default:
       return state;

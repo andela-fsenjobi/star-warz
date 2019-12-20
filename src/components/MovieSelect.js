@@ -35,7 +35,7 @@ const MovieSelect = ({
     <div className="title">
       <div className="row">
         <div className="col-md-8 offset-md-2 text-center">
-          <h1 class="display-4">Choose a Star Wars movie</h1>
+          <h1 className="display-4">Choose a Star Wars movie</h1>
         </div>
       </div>
       {pending ? (

@@ -1,44 +1,35 @@
-export const sortObjectArray = ({
+export const sortCharacters = ({
   characters: objectArray,
   key,
   oldKey,
   sortState
 }) => {
-  return oldKey === key && sortState === "asc"
-    ? sortDesc(objectArray, key)
-    : sortAsc(objectArray, key);
+  const isDesc = oldKey === key && sortState === "asc";
+  const order = isDesc ? "desc" : "asc";
+  const characters = sort(objectArray, key, order)
+
+  return { characters, sortState: order, oldKey: key };
 };
 
-const sortDesc = (objectArray, key) => {
-  const newObjectArray = objectArray.sort((a, b) => {
+const sort = (objectArray, key, order) => {
+  return objectArray.sort((a, b) => {
     const currentItem = prepareValue(a[key], key);
     const nextItem = prepareValue(b[key], key);
     if (currentItem > nextItem) {
-      return -1;
+      return sortMap[order].greater;
     } else if (currentItem < nextItem) {
-      return 1;
+      return sortMap[order].lesser;;
     } else {
       return 0;
     }
   });
-
-  return { characters: newObjectArray, sortState: "desc", oldKey: key };
 };
 
-const sortAsc = (objectArray, key) => {
-  const newObjectArray = objectArray.sort((a, b) => {
-    const currentItem = prepareValue(a[key], key);
-    const nextItem = prepareValue(b[key], key);
-    if (currentItem > nextItem) {
-      return 1;
-    } else if (currentItem < nextItem) {
-      return -1;
-    } else {
-      return 0;
-    }
-  });
+export const sortMovies = movies => sort(movies, 'release_date', 'asc');
 
-  return { characters: newObjectArray, sortState: "asc", oldKey: key };
+const sortMap = {
+  desc: { greater: -1, lesser: 1 },
+  asc: { greater: 1, lesser: -1 }
 };
 
 const prepareValue = (value, type) => {
