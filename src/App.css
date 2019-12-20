@@ -35,9 +35,38 @@ button {
   margin-bottom: 10px;
   font-weight: 200;
 }
-/* 
+
 .intro-container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  height: 200px;
+  font-weight: 600;
+  letter-spacing: 6px;
+  line-height: 150%;
+  perspective: 400px;
+  text-align: justify;
+  overflow: hidden;
 }
 
 .intro-content {
-} */
+  position: relative;
+  top: 200px;
+  transform-origin: 50% 100%;
+  animation: intro-content 45s linear infinite;
+}
+
+@keyframes intro-content {
+  0% {
+    top: 100;
+    transform: rotateX(20deg) translateZ(0);
+  }
+  100% {
+    top: -800px;
+    transform: rotateX(25deg) translateZ(-400px);
+  }
+}
+
+.intro-title {
+  text-transform: uppercase;
+}

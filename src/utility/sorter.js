@@ -4,8 +4,7 @@ export const sortCharacters = ({
   oldKey,
   sortState
 }) => {
-  const isDesc = oldKey === key && sortState === "asc";
-  const order = isDesc ? "desc" : "asc";
+  const order = oldKey === key && sortState === "asc" ? "desc" : "asc";
   const characters = sort(objectArray, key, order)
 
   return { characters, sortState: order, oldKey: key };
