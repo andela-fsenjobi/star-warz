@@ -29,7 +29,9 @@ const MovieSelect = ({
     const movie = movies.find(movie => movie.url === movieURL);
     getDetails(movie, characters);
     refreshMovieCharacters();
-    fetchCharacters(movie.characters, characters);
+    if (movie) {
+      fetchCharacters(movie.characters, characters);
+    } 
   };
   return (
     <div className="title">
