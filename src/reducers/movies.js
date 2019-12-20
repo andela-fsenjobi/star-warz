@@ -1,5 +1,5 @@
 import { actionTypes } from "../actions/actionTypes";
-import { sortMovies } from "../utility/sorter";
+import { sortMovies } from "../utility";
 
 const initialState = { results: [], pending: true };
 

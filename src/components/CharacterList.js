@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { sortCharacters, filterCharacters } from "../actions/actions";
 import FilterByGender from "./FilterByGender";
+import Loading from "./Loading";
 
 const CharacterList = () => {
   const movieCharacters = useSelector(state => state.movieCharacters);
@@ -12,12 +13,16 @@ const CharacterList = () => {
     totalHeight,
     totalHeightFeet,
     remHeightInches,
-    filters
+    filters,
+    loading
   } = movieCharacters;
   const dispatchSortCharacters = key => () =>
     dispatch(sortCharacters(characters, key));
+console.log({loading});
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <div className="container">
       <div className="row title">
         <div className="col-md-8 offset-md-2 text-center">
@@ -25,9 +30,7 @@ const CharacterList = () => {
         </div>
       </div>
       <div className="row gender-filter">
-        <div className="col-md-5 offset-md-1 text-left">
-          Filter by gender:
-        </div>
+        <div className="col-md-5 offset-md-1 text-left">Filter by gender:</div>
         <div className="col-md-5 text-right">
           <FilterByGender
             filters={filters}
