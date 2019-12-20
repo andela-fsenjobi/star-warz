@@ -18,18 +18,18 @@ const sort = (objectArray, key, order) => {
     if (currentItem > nextItem) {
       return sortMap[order].greater;
     } else if (currentItem < nextItem) {
-      return sortMap[order].less;;
+      return sortMap[order].lesser;;
     } else {
       return 0;
     }
   });
 };
 
-export const sortMovies = movies => sort(movies, "release_date");
+export const sortMovies = movies => sort(movies, 'release_date', 'asc');
 
 const sortMap = {
-  desc: { greater: -1, less: 1 },
-  asc: { greater: 1, less: -1 }
+  desc: { greater: -1, lesser: 1 },
+  asc: { greater: 1, lesser: -1 }
 };
 
 const prepareValue = (value, type) => {
