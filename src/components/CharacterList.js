@@ -5,7 +5,7 @@ import { sortCharacters, filterCharacters } from "../actions/actions";
 import FilterByGender from "./FilterByGender";
 import Loading from "./Loading";
 
-const CharacterList = () => {
+const CharacterList = ({length}) => {
   const movieCharacters = useSelector(state => state.movieCharacters);
   const dispatch = useDispatch();
   const {
@@ -14,13 +14,11 @@ const CharacterList = () => {
     totalHeightFeet,
     remHeightInches,
     filters,
-    loading
   } = movieCharacters;
   const dispatchSortCharacters = key => () =>
     dispatch(sortCharacters(characters, key));
-console.log({loading});
 
-  return loading ? (
+  return (length > characters.length) ? (
     <Loading />
   ) : (
     <div className="container">
@@ -51,6 +49,7 @@ console.log({loading});
           <button onClick={dispatchSortCharacters("height")}>Height</button>
         </div>
       </div>
+      {console.log(characters)}
       {characters.map(({ name, gender, height, url }) => (
         <div className="row list-item" key={url}>
           <div className="col-md-4 offset-md-1">{name}</div>

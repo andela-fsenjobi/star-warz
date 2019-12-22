@@ -16,7 +16,7 @@ const MovieDetails = ({ movie }) => {
       {movie ? (
         <div>
           <MovieIntro {...movie} />
-          <CharacterList />
+          <CharacterList length={movie.characters.length} />
         </div>
       ) : (
         <div className="text-center">
