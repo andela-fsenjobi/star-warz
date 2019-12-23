@@ -21,7 +21,7 @@ const MovieSelect = () => {
     dispatch(refreshMovieCharacters());
     if (movie) dispatch(fetchCharacters(movie.characters, characters));
   };
-  dispatch(fetchMovies());
+  if (movies.length < 1) dispatch(fetchMovies());
   return (
     <div className="title">
       <div className="row">
