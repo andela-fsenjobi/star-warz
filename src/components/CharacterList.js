@@ -49,7 +49,6 @@ const CharacterList = ({length}) => {
           <button onClick={dispatchSortCharacters("height")}>Height</button>
         </div>
       </div>
-      {console.log(characters)}
       {characters.map(({ name, gender, height, url }) => (
         <div className="row list-item" key={url}>
           <div className="col-md-4 offset-md-1">{name}</div>
