@@ -27,6 +27,7 @@ const sort = (objectArray, key, order) => {
 export const sortMovies = movies => sort(movies, 'release_date', 'asc');
 
 const sortMap = {
+  // This helps to make the sort function dynamic and reusable for both 'asc' and 'desc' sorting
   desc: { greater: -1, lesser: 1 },
   asc: { greater: 1, lesser: -1 }
 };

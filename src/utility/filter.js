@@ -1,31 +1,8 @@
 export const filterCharacters = (objectArray, gender) => {
-  const {
-    characters,
-    filtered,
-    gender: oldGender,
-    filteredCharacters,
-    totalHeight
-  } = objectArray;
-  let listToFilter;
-  let startPoint = {
-    characters: [],
-    totalHeight: 0,
-    filteredCharacters: [],
-    filters: []
-  };
-  if (gender === oldGender) return objectArray;
-  if (filtered) {
-    listToFilter = filteredCharacters;
-    if (gender === "all") {
-      startPoint.characters = characters;
-      startPoint.totalHeight = totalHeight;
-    } else if (gender !== oldGender) {
-      startPoint.filteredCharacters = characters;
-    }
-  } else {
-    listToFilter = characters;
-  }
+  if (gender === objectArray.gender) return objectArray;
 
+  const listToFilter = objectArray.filtered ? objectArray.filteredCharacters : objectArray.characters;
+  const startPoint = getStartPoint(objectArray, gender);
   const movieCharacters = filter(listToFilter, startPoint, "gender", gender);
   const heightDetails = decorate(movieCharacters.totalHeight);
 
@@ -38,16 +15,50 @@ export const filterCharacters = (objectArray, gender) => {
   };
 };
 
+const getStartPoint = ({
+    characters,
+    filtered,
+    totalHeight
+  }, gender) => {
+
+  const startPoint = {
+    characters: [],
+    totalHeight: 0,
+    filteredCharacters: [],
+    filters: []
+  };
+
+  if (filtered) {
+    // if list was previously filtered, don't start all over
+    // add all hidden characters to the list if filter changes to all
+    // if filter changes, all current visible characters are automatically filtered
+    return {
+      ...startPoint,
+      characters: gender === "all" ? characters : [],
+      totalHeight: gender === "all" ? totalHeight : 0,
+      filteredCharacters: gender === "all" ? [] : characters,
+    };
+  }
+
+  return startPoint;
+}
+
 export const filter = (object, start, key, filter) =>
   object.reduce((a, b) => {
     if (b[key] === filter || filter === "all") {
-      a.characters.push(b);
-      if (!a.filters.includes(b.gender)) a.filters.push(b.gender);
-      if (b.height !== "unknown") a.totalHeight += +b.height;
-    } else {
-      a.filteredCharacters.push(b);
+      return {
+        ...a,
+        characters: [...a.characters, b],
+        filters: a.filters.includes(b.gender)
+          ? a.filters
+          : [...a.filters, b.gender],
+        height: b.height === "unknown" ? a.totalHeight : a.totalHeight += +b.height, 
+      };
     }
-    return a;
+    return {
+      ...a,
+      filteredCharacters: [...a.filteredCharacters, b]
+    };
   }, start);
 
 export const decorate = totalHeight => {

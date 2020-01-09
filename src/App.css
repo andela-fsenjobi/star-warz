@@ -40,20 +40,21 @@ button {
   display: flex;
   justify-content: center;
   position: relative;
-  height: 200px;
-  font-weight: 600;
+  height: 400px;
+  font-weight: 300;
+  font-size: 40px;
   letter-spacing: 6px;
-  line-height: 150%;
-  perspective: 400px;
+  line-height: 120%;
+  perspective: 1000px;
   text-align: justify;
   overflow: hidden;
 }
 
 .intro-content {
   position: relative;
-  top: 200px;
+  top: 400px;
   transform-origin: 50% 100%;
-  animation: intro-content 45s linear infinite;
+  animation: intro-content 30s linear infinite;
 }
 
 @keyframes intro-content {
@@ -63,10 +64,36 @@ button {
   }
   100% {
     top: -800px;
-    transform: rotateX(25deg) translateZ(-400px);
+    transform: rotateX(45deg) translateZ(-400px);
   }
 }
 
 .intro-title {
   text-transform: uppercase;
+}
+
+select.form-control, select.form-control:focus, select.form-control:hover {
+    background-color: #ecd412;
+    border-color: #000000;
+    color: #000000;
+}
+
+.asc::after {
+  content: '↑';
+  margin-left: 20px;
+}
+
+.desc::after {
+  content: '↓';
+  margin-left: 20px;
+}
+
+.sortable::after {
+  content: '⇕';
+  margin-left: 20px;
+}
+
+body {
+  background-color: #000000;
+  color: #ecd412;
 }
