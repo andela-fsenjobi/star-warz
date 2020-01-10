@@ -5,7 +5,7 @@ import CharacterList from "./CharacterList";
 import MovieIntro from "./MovieIntro";
 import { useMovieState } from '../contexts/MovieContext';
 import { CharactersProvider } from '../contexts/CharactersContext';
-
+import { CacheProvider } from "../contexts/CacheContext";
 
 function MovieDetails() {
   const { movie } = useMovieState();
@@ -16,7 +16,9 @@ function MovieDetails() {
         <div>
           <MovieIntro {...movie} />
           <CharactersProvider>
-            <CharacterList movie={movie} />
+            <CacheProvider>
+              <CharacterList movie={movie} />
+            </CacheProvider>
           </CharactersProvider>
         </div>
       ) : (

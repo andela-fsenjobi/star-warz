@@ -10,12 +10,12 @@ import FilterByGender from "./FilterByGender";
 import SortIndicator from "./SortIndicator";
 import Loading from "./Loading";
 import { useCharactersState, useCharactersDispatch } from '../contexts/CharactersContext';
-import { useCharacterCache } from "../contexts/CharactersCacheContext";
+import { useCache } from "../contexts/CacheContext";
 
 const CharacterList = ({movie}) => {
   const movieCharacters = useCharactersState();
   const dispatch = useCharactersDispatch();
-  const cache = useCharacterCache();
+  const { addToCache, cache } = useCache();
   const {
     characters,
     totalHeight,
@@ -37,7 +37,7 @@ const CharacterList = ({movie}) => {
             throw res.error;
           }
           dispatch(loadCharacter(id, res));
-          cache.setAllCharacters(cache.addToCache(cache.allCharacters, id, res));
+          addToCache(id, res);
           return res;
         })
         .catch(error => {
@@ -51,8 +51,8 @@ const CharacterList = ({movie}) => {
         for (let i in movie.characters) {
           const url = movie.characters[i];
           const characterId = +url.match(/\d+/)[0];
-          if(cache.allCharacters[characterId]) {
-            dispatch(loadCharacter(characterId, cache.allCharacters[characterId]));
+          if(cache[characterId]) {
+            dispatch(loadCharacter(characterId, cache[characterId]));
           } else {
             fetchCharacter(characterId);
           }
