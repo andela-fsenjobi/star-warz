@@ -1,14 +1,19 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
 
-import { sortCharacters, filterCharacters } from "../actions/actions";
+import {
+  sortCharacters,
+  filterCharacters,
+  loadCharacter,
+  refreshMovieCharacters
+} from "../actions/actions";
 import FilterByGender from "./FilterByGender";
 import SortIndicator from "./SortIndicator";
 import Loading from "./Loading";
+import { useMovieCharactersState, useMovieCharactersDispatch } from '../contexts/MovieCharactersContext';
 
-const CharacterList = ({length}) => {
-  const movieCharacters = useSelector(state => state.movieCharacters);
-  const dispatch = useDispatch();
+const CharacterList = ({movie}) => {
+  const movieCharacters = useMovieCharactersState();
+  const dispatch = useMovieCharactersDispatch();
   const {
     characters,
     totalHeight,
@@ -22,8 +27,31 @@ const CharacterList = ({length}) => {
   const dispatchSortCharacters = key => () =>
     dispatch(sortCharacters(characters, key));
   let serialNo = 0;
+    const fetchCharacter = id => {
+      return fetch(`https://swapi.co/api/people/${id}/`)
+        .then(res => res.json())
+        .then(res => {
+          if (res.error) {
+            throw res.error;
+          }
+          dispatch(loadCharacter(id, res));
+          return res;
+        })
+        .catch(error => {
+          console.log("Not working");
+        });
+    };
 
-  return (!filtered && length > characters.length) ?
+    useEffect(() => {
+      dispatch(refreshMovieCharacters());
+      for (let i in movie.characters) {
+        const url = movie.characters[i];
+        const characterId = +url.match(/\d+/)[0];
+        fetchCharacter(characterId, dispatch);
+      }
+    }, [movie]);
+
+  return (!filtered && movie.characters.length > characters.length) ?
     <Loading/> :
   (
     <div className="container">
