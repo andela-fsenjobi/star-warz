@@ -3,23 +3,23 @@ import { actionTypes } from "../actions/actionTypes";
 import {
   sortCharacters,
   filterCharacters,
-  updateMovieCharacters
+  updateCharacters
 } from "../utility";
 
-const MovieCharactersStateContext = React.createContext();
-const MovieCharactersDispatchContext = React.createContext();
+const CharactersStateContext = React.createContext();
+const CharactersDispatchContext = React.createContext();
 
 const initialState = { characters: [], filters: [], totalHeight: 0 };
 
-function movieCharactersReducer(state, action) {
+function charactersReducer(state, action) {
   switch (action.type) {
     case actionTypes.LOAD_CHARACTER: {
-      return updateMovieCharacters([action.character], state);
+      return updateCharacters([action.character], state);
     }
     case actionTypes.ADD_CACHED_CHARACTERS: {
-      return updateMovieCharacters(action.movieCharacters, state);
+      return updateCharacters(action.movieCharacters, state);
     }
-    case actionTypes.REFRESH_MOVIE_CHARACTERS:
+    case actionTypes.REFRESH_CHARACTERS:
       return { ...initialState, refresh: true };
     case actionTypes.SORT_CHARACTERS: {
       const { key } = action;
@@ -30,7 +30,7 @@ function movieCharactersReducer(state, action) {
         key
       };
     }
-    case actionTypes.FILTER_CHARACTERS_BY_GENDER: {
+    case actionTypes.FILTER_CHARACTERS: {
       return { ...state, ...filterCharacters(state, action.gender) };
     }
     default:
@@ -39,27 +39,27 @@ function movieCharactersReducer(state, action) {
 }
 
 
-function MovieCharactersProvider({ children }) {
+function CharactersProvider({ children }) {
   const [state, dispatch] = React.useReducer(
-    movieCharactersReducer,
+    charactersReducer,
     initialState
   );
 
   return (
-    <MovieCharactersStateContext.Provider value={state}>
-      <MovieCharactersDispatchContext.Provider value={dispatch}>
+    <CharactersStateContext.Provider value={state}>
+      <CharactersDispatchContext.Provider value={dispatch}>
         {children}
-      </MovieCharactersDispatchContext.Provider>
-    </MovieCharactersStateContext.Provider>
+      </CharactersDispatchContext.Provider>
+    </CharactersStateContext.Provider>
   );
 }
 
-function useMovieCharactersState() {
-  return React.useContext(MovieCharactersStateContext);
+function useCharactersState() {
+  return React.useContext(CharactersStateContext);
 }
 
-function useMovieCharactersDispatch() {
-  return React.useContext(MovieCharactersDispatchContext);
+function useCharactersDispatch() {
+  return React.useContext(CharactersDispatchContext);
 }
 
-export { MovieCharactersProvider, useMovieCharactersState, useMovieCharactersDispatch };
+export { CharactersProvider, useCharactersState, useCharactersDispatch };

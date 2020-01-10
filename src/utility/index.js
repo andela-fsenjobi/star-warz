@@ -1,5 +1,5 @@
 import { sortCharacters, sortMovies } from "../utility/sorter";
 import { filterCharacters } from "../utility/filter";
-import { updateMovieCharacters } from "../utility/updater";
+import { updateCharacters } from "../utility/updater";
 
-export { sortMovies, sortCharacters, filterCharacters, updateMovieCharacters };
+export { sortMovies, sortCharacters, filterCharacters, updateCharacters };

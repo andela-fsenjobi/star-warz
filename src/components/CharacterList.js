@@ -4,16 +4,16 @@ import {
   sortCharacters,
   filterCharacters,
   loadCharacter,
-  refreshMovieCharacters
+  refreshCharacters
 } from "../actions/actions";
 import FilterByGender from "./FilterByGender";
 import SortIndicator from "./SortIndicator";
 import Loading from "./Loading";
-import { useMovieCharactersState, useMovieCharactersDispatch } from '../contexts/MovieCharactersContext';
+import { useCharactersState, useCharactersDispatch } from '../contexts/MovieCharactersContext';
 
 const CharacterList = ({movie}) => {
-  const movieCharacters = useMovieCharactersState();
-  const dispatch = useMovieCharactersDispatch();
+  const movieCharacters = useCharactersState();
+  const dispatch = useCharactersDispatch();
   const {
     characters,
     totalHeight,
@@ -42,14 +42,17 @@ const CharacterList = ({movie}) => {
         });
     };
 
-    useEffect(() => {
-      dispatch(refreshMovieCharacters());
-      for (let i in movie.characters) {
-        const url = movie.characters[i];
-        const characterId = +url.match(/\d+/)[0];
-        fetchCharacter(characterId, dispatch);
-      }
-    }, [movie]);
+    useEffect(
+      () => {
+        dispatch(refreshCharacters());
+        for (let i in movie.characters) {
+          const url = movie.characters[i];
+          const characterId = +url.match(/\d+/)[0];
+          fetchCharacter(characterId);
+        }
+      },
+      [movie]
+    );
 
   return (!filtered && movie.characters.length > characters.length) ?
     <Loading/> :

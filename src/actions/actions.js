@@ -1,9 +1,7 @@
 import { actionTypes } from "./actionTypes";
 
-export const getMovies = () => ({ type: actionTypes.LOAD_MOVIES });
-
 export const getCharacters = (characters, list) => ({
-  type: actionTypes.LOAD_MOVIE_CHARACTERS,
+  type: actionTypes.LOAD_CHARACTERS,
   characters,
   list
 });
@@ -15,7 +13,7 @@ export const sortCharacters = (characters, key) => ({
 });
 
 export const filterCharacters = (characters, gender) => ({
-  type: actionTypes.FILTER_CHARACTERS_BY_GENDER,
+  type: actionTypes.FILTER_CHARACTERS,
   characters,
   gender
 });
@@ -26,8 +24,8 @@ export const loadCharacter = (id, character) => ({
   character
 });
 
-export const refreshMovieCharacters = () => ({
-  type: actionTypes.REFRESH_MOVIE_CHARACTERS
+export const refreshCharacters = () => ({
+  type: actionTypes.REFRESH_CHARACTERS
 });
 export const movieCharactersLoading = () => ({
   type: actionTypes.MOVIE_CHARACTERS_LOADING

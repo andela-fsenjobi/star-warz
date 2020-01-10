@@ -4,7 +4,7 @@ import logo from "../logo.svg";
 import CharacterList from "./CharacterList";
 import MovieIntro from "./MovieIntro";
 import { useMovieState } from '../contexts/MovieContext';
-import { MovieCharactersProvider } from '../contexts/MovieCharactersContext';
+import { CharactersProvider } from '../contexts/MovieCharactersContext';
 
 
 function MovieDetails() {
@@ -15,9 +15,9 @@ function MovieDetails() {
       {movie ? (
         <div>
           <MovieIntro {...movie} />
-          <MovieCharactersProvider>
+          <CharactersProvider>
             <CharacterList movie={movie} />
-          </MovieCharactersProvider>
+          </CharactersProvider>
         </div>
       ) : (
         <div className="text-center">
