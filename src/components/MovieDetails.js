@@ -4,7 +4,7 @@ import logo from "../logo.svg";
 import CharacterList from "./CharacterList";
 import MovieIntro from "./MovieIntro";
 import { useMovieState } from '../contexts/MovieContext';
-import { CharactersProvider } from '../contexts/MovieCharactersContext';
+import { CharactersProvider } from '../contexts/CharactersContext';
 
 
 function MovieDetails() {

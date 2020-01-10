@@ -9,7 +9,7 @@ import {
 import FilterByGender from "./FilterByGender";
 import SortIndicator from "./SortIndicator";
 import Loading from "./Loading";
-import { useCharactersState, useCharactersDispatch } from '../contexts/MovieCharactersContext';
+import { useCharactersState, useCharactersDispatch } from '../contexts/CharactersContext';
 
 const CharacterList = ({movie}) => {
   const movieCharacters = useCharactersState();
