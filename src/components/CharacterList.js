@@ -31,14 +31,13 @@ const CharacterList = ({movie}) => {
   let serialNo = 0;
     const fetchCharacter = id => {
       return fetch(`https://swapi.co/api/people/${id}/`)
-        .then(res => res.json())
-        .then(res => {
-          if (res.error) {
-            throw res.error;
+        .then(response => response.json())
+        .then(character => {
+          if (character.error) {
+            throw character.error;
           }
-          dispatch(loadCharacter(id, res));
-          addToCache(id, res);
-          return res;
+          dispatch(loadCharacter(id, character));
+          addToCache(id, character);
         })
         .catch(error => {
           console.log("Not working");
