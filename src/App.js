@@ -3,16 +3,18 @@ import React from 'react';
 import MovieSelect from './components/MovieSelect';
 import MovieDetails from './components/MovieDetails';
 import './App.css';
+import { MovieProvider } from './contexts/MovieContext';
 
-
-function App(movie) {
+function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <MovieSelect />
-        <MovieDetails />
-      </header>
-    </div>
+    <MovieProvider>
+      <div className="App">
+        <header className="App-header">
+          <MovieSelect />
+          <MovieDetails />
+        </header>
+      </div>
+    </MovieProvider>
   );
 }
 

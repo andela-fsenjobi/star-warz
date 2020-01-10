@@ -1,14 +1,21 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
 
-import { sortCharacters, filterCharacters } from "../actions/actions";
+import {
+  sortCharacters,
+  filterCharacters,
+  loadCharacter,
+  refreshCharacters
+} from "../actions/actions";
 import FilterByGender from "./FilterByGender";
 import SortIndicator from "./SortIndicator";
 import Loading from "./Loading";
+import { useCharactersState, useCharactersDispatch } from '../contexts/CharactersContext';
+import { useCache } from "../contexts/CacheContext";
 
-const CharacterList = ({length}) => {
-  const movieCharacters = useSelector(state => state.movieCharacters);
-  const dispatch = useDispatch();
+const CharacterList = ({movie}) => {
+  const movieCharacters = useCharactersState();
+  const dispatch = useCharactersDispatch();
+  const { addToCache, cache } = useCache();
   const {
     characters,
     totalHeight,
@@ -22,8 +29,38 @@ const CharacterList = ({length}) => {
   const dispatchSortCharacters = key => () =>
     dispatch(sortCharacters(characters, key));
   let serialNo = 0;
+    const fetchCharacter = id => {
+      return fetch(`https://swapi.co/api/people/${id}/`)
+        .then(response => response.json())
+        .then(character => {
+          if (character.error) {
+            throw character.error;
+          }
+          dispatch(loadCharacter(id, character));
+          addToCache(id, character);
+        })
+        .catch(error => {
+          console.log("Not working");
+        });
+    };
 
-  return (!filtered && length > characters.length) ?
+    useEffect(
+      () => {
+        dispatch(refreshCharacters());
+        for (let i in movie.characters) {
+          const url = movie.characters[i];
+          const characterId = +url.match(/\d+/)[0];
+          if(cache[characterId]) {
+            dispatch(loadCharacter(characterId, cache[characterId]));
+          } else {
+            fetchCharacter(characterId);
+          }
+        }
+      },
+      [movie]
+    );
+
+  return (!filtered && movie.characters.length > characters.length) ?
     <Loading/> :
   (
     <div className="container">

@@ -1,22 +1,25 @@
 import React from "react";
-import { connect } from "react-redux";
 
 import logo from "../logo.svg";
 import CharacterList from "./CharacterList";
 import MovieIntro from "./MovieIntro";
+import { useMovieState } from '../contexts/MovieContext';
+import { CharactersProvider } from '../contexts/CharactersContext';
+import { CacheProvider } from "../contexts/CacheContext";
 
-const mapStateToProps = state => {
-  const { movies, movieId } = state;
-  return { movie: movies.results.find(result => result.url === movieId) };
-};
+function MovieDetails() {
+  const { movie } = useMovieState();
 
-const MovieDetails = ({ movie }) => {
   return (
     <div>
       {movie ? (
         <div>
           <MovieIntro {...movie} />
-          <CharacterList length={movie.characters.length} />
+          <CharactersProvider>
+            <CacheProvider>
+              <CharacterList movie={movie} />
+            </CacheProvider>
+          </CharactersProvider>
         </div>
       ) : (
         <div className="text-center">
@@ -27,4 +30,4 @@ const MovieDetails = ({ movie }) => {
   );
 };
 
-export default connect(mapStateToProps)(MovieDetails);
+export default MovieDetails;

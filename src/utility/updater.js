@@ -1,21 +1,21 @@
 import { filter, decorate } from "./filter";
 
-export const updateMovieCharacters = (movieCharacters, state) => {
+export const updateCharacters = (movieCharacters, state) => {
   const startPoint = state.refresh
     ? { characters: [], totalHeight: 0, filters: [] }
     : state;
 
-  const updatedMovieCharacters = filter(
+  const updatedCharacters = filter(
     movieCharacters,
     startPoint,
     "gender",
     "all"
   );
 
-  const heightDetails = decorate(updatedMovieCharacters.totalHeight);
+  const heightDetails = decorate(updatedCharacters.totalHeight);
 
   return {
-    ...updatedMovieCharacters,
+    ...updatedCharacters,
     ...heightDetails,
     refresh: false,
   };
