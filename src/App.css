@@ -54,7 +54,7 @@ button {
   position: relative;
   top: 400px;
   transform-origin: 50% 100%;
-  animation: intro-content 30s linear infinite;
+  animation: intro-content 19s linear infinite;
 }
 
 @keyframes intro-content {

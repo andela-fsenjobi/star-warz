@@ -1,27 +1,35 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
 
-import {
-  fetchCharacters,
-  fetchMovies,
-  getDetails,
-  refreshMovieCharacters
-} from "../actions/actions";
 import Loading from "./Loading";
+import { sortMovies } from "../utility";
+import { useMovieState } from "../contexts/MovieContext";
 
-const MovieSelect = () => {
-  const {
-    characters,
-    movies: { results: movies, pending }
-  } = useSelector(state => state);
-  const dispatch = useDispatch();
-  const handleMovieSelect = (dispatch, url) => {
-    const movie = movies.find(movie => movie.url === url);
-    dispatch(getDetails(movie, characters));
-    dispatch(refreshMovieCharacters());
-    if (movie) dispatch(fetchCharacters(movie.characters, characters));
+const MovieSelect = React.memo(() => {
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const { setMovie } = useMovieState();
+
+  useEffect(() => {
+    fetch("https://swapi.co/api/films/")
+      .then(res => res.json())
+      .then(res => {
+        if (res.error) {
+          throw res.error;
+        }
+        setMovies(sortMovies(res.results));
+        setLoading(false);
+        return res;
+      })
+      .catch(error => {
+        console.log("Not working");
+      });
+  }, []);
+
+  const handleMovieSelect = event => {
+    const movie = movies.find(movie => movie.url === event.target.value);
+    setMovie(movie);
   };
-  if (movies.length < 1) dispatch(fetchMovies());
+
   return (
     <div className="title">
       <div className="row">
@@ -29,13 +37,13 @@ const MovieSelect = () => {
           <h1 className="display-4">Choose a Star Wars movie</h1>
         </div>
       </div>
-      {pending ? (
+      {loading ? (
         <Loading />
       ) : (
         <div className="row">
           <div className="col-md-8 offset-md-2">
             <select
-              onChange={e => handleMovieSelect(dispatch, e.target.value)}
+              onChange={handleMovieSelect}
               className="form-control form-control-lg"
             >
               <option></option>
@@ -50,6 +58,6 @@ const MovieSelect = () => {
       )}
     </div>
   );
-};
+});
 
 export default MovieSelect;
